@@ -1,14 +1,14 @@
 아두이노 코드
 void setup() {
-  pinMode(13,OUTPUT);
-  pinMode(7,INPUT_PULLUP);
+  pinMode(13,OUTPUT); //13번 핀을 led로 사용
+  pinMode(7,INPUT_PULLUP); //7번 핀을 스위치로 사용
   Serial.begin(9600);
 }
 void loop() {
   if(Serial.available()){
     char a = Serial.read();
     Serial.println(a);
-    if(a=='2') digitalWrite(13, HIGH);
+    if(a=='2') digitalWrite(13, HIGH); 
     if(a=='3') digitalWrite(13, LOW);
     if(a=='4'){
       tone(4, 523, 500); 
