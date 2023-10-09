@@ -1,0 +1,69 @@
+아두이노 코드
+void setup() {
+  pinMode(13,OUTPUT);
+  pinMode(7,INPUT_PULLUP);
+  Serial.begin(9600);
+}
+void loop() {
+  if(Serial.available()){
+    char a = Serial.read();
+    Serial.println(a);
+    if(a=='2') digitalWrite(13, HIGH);
+    if(a=='3') digitalWrite(13, LOW);
+    if(a=='4'){
+      tone(4, 523, 500); 
+      delay(500);
+      tone(4, 523, 500); 
+      delay(500);
+      tone(4, 783, 500);
+      delay(500);
+      tone(4, 783, 500);
+      delay(500);
+      tone(4, 880, 500);
+      delay(500);
+      tone(4, 880, 500);
+      delay(500);
+      tone(4, 783, 500);
+      delay(500);
+    }
+  int b = digitalRead(7);
+  Serial.println(b);
+  delay(500);
+}}
+
+프로세싱 코드
+import processing.serial.*;
+import processing.net.*;
+Serial p;
+Server s;
+Client c;
+void setup(){
+  p = new Serial(this, "COM4", 9600);
+  s = new Server(this, 12345);
+}
+String m="";
+void draw(){{
+     c = s.available();
+     if (c != null) {
+     String m = c.readString();
+     m = m.substring(m.length() - 1);
+     print(m);
+     p.write(m);
+    }}
+  if(p.available()>0){
+    m = p.readStringUntil('\n');
+    if(m!=null){
+      print(m);
+    }
+  }
+  c = s.available();
+  if(c!=null){
+    String w = c.readString();
+    println(w);
+    if (w.indexOf("GET")==0) { 
+      c.write("HTTP/1.1 200 OK\r\n\r\n\r\n"); 
+      c.write(m);
+    }
+    c.stop();
+  }
+}
