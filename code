@@ -8,9 +8,9 @@ void loop() {
   if(Serial.available()){
     char a = Serial.read();
     Serial.println(a);
-    if(a=='2') digitalWrite(13, HIGH); 
-    if(a=='3') digitalWrite(13, LOW);
-    if(a=='4'){
+    if(a=='2') digitalWrite(13, HIGH); //시리얼로 2를 받으면 13번핀의 led작동
+    if(a=='3') digitalWrite(13, LOW); //시리얼로 3을 받으면 13번핀의 led꺼짐
+    if(a=='4'){ //시리얼로 4를 받으면 "도도솔솔라라솔" 연주
       tone(4, 523, 500); 
       delay(500);
       tone(4, 523, 500); 
@@ -26,8 +26,8 @@ void loop() {
       tone(4, 783, 500);
       delay(500);
     }
-  int b = digitalRead(7);
-  Serial.println(b);
+  int b = digitalRead(7); //7번핀의 스위치를 읽음
+  Serial.println(b); //스위치의 상태를 시리얼로 전달
   delay(500);
 }}
 
